@@ -1,0 +1,32 @@
+/* .head{
+	overflow:hidden;
+}
+.head_1{
+	width:200px;
+	color:blue;
+	font-size:50px;
+	text-align:center;
+	position: relative;
+	left:50px;
+}
+.head_2{
+	height:100%;
+	width:400px;
+	font-size:15px;
+	position: relative;
+	left:850px;
+	top:-65px;
+	text-align: center;
+} */
+/* 图片旋转 */
+@-webkit-keyframes rotation{
+from {-webkit-transform: rotate(0deg);}
+to {-webkit-transform: rotate(360deg);}
+}
+ .xwcms:hover {
+            -webkit-transform: rotate(360deg);
+			animation: rotation 3s linear infinite;
+			-moz-animation: rotation 3s linear infinite;
+			-webkit-animation: rotation 3s linear infinite;
+			-o-animation: rotation 3s linear infinite;
+        }

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
+  <display-name>SSH</display-name>
+  <welcome-file-list>
+    <welcome-file>login.jsp</welcome-file>
+  </welcome-file-list>
+  <!-- 验证码servlet -->
+  <servlet>
+    <description></description>
+    <display-name>YZM</display-name>
+    <servlet-name>YZM</servlet-name>
+    <servlet-class>com.lkw.util.Yzm</servlet-class>
+    <init-param>
+      <param-name>content</param-name>
+      <param-value>abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890</param-value>
+    </init-param>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>YZM</servlet-name>
+    <url-pattern>/yzm</url-pattern>
+  </servlet-mapping>
+   <error-page>
+    <error-code>404</error-code>
+    <location>/all/404.jsp</location>
+  </error-page>
+   <error-page>
+    <error-code>500</error-code>
+    <location>/all/404.jsp</location>
+  </error-page>
+  <!-- struts2 核心过滤器配置 -->
+ 	<filter>
+        <filter-name>struts2</filter-name>
+        <filter-class>org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+    </filter>
+
+    <filter-mapping>
+        <filter-name>struts2</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+    
+    <!-- 配置Spring的用于初始化容器对象的监听器 -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:applicationContext.xml</param-value>
+	</context-param>
+</web-app>

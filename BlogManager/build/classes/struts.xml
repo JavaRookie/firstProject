@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+<struts>
+	<constant name="struts.action.excludePattern" value="/yzm,/photos/*" />
+	<constant name="struts.action.extension" value="action,api,,"/>
+	<package name="ssh" extends="struts-default" namespace="/">
+	<!-- struts 自己创建 -->
+	<!-- <action name="product_*" class="com.lkw.action.ProductAction" method="{1}">
+		
+		</action> -->
+		<interceptors>
+		<interceptor name="logininterceptor" class="com.lkw.interceptor.LoginInterceptor"></interceptor>
+		<!-- 自定义拦截器栈 -->
+		<interceptor-stack name="mystack">
+			<interceptor-ref name="logininterceptor"></interceptor-ref>
+			<interceptor-ref name="defaultStack"></interceptor-ref>
+		</interceptor-stack>
+		</interceptors>
+		<!-- 全局结果集 -->
+		<!-- <global-results>
+			<result name="formatExecption">/WEB-INF/page/formatExecption.jsp</result>
+		</global-results> -->
+		<!--当前包的全局异常 -->
+		<!-- <global-exception-mappings>
+			<exception-mapping result="formatExecption" exception="java.lang.Exception"></exception-mapping>
+		</global-exception-mappings> -->
+		<!-- spring 创建管理 -->
+		<action name="user_*" class="userAction" method="{1}">
+			<result name="input">/login.jsp</result>
+			<result name="success" type="redirect">main</result>
+			<result name="loginout">/login.jsp</result>
+		</action>
+		<action name="main">
+			<result name="success">/all/index.jsp</result>
+			<result name="fail">/login.jsp</result>
+			<interceptor-ref name="mystack"></interceptor-ref>
+		</action>
+		<action name="consumer_*" class="consumerAction" method="{1}">
+			<result name="show">consumer/consumer.jsp</result>
+			<result name="index">consumer/consumer.jsp</result>
+			<result name="add">consumer/consumer.jsp</result>
+		</action>
+		<action name="fileupload" class="com.lkw.util.FileUploadUtil" method="execute">
+			<result name="success">success.jsp</result>
+		</action>
+		<action name="down" class="com.lkw.action.FileLoadAction"
+			method="dw">
+			<result type="stream">
+				<param name="contentType">text/plain</param>
+				<param name="contentDisposition">attachment;fileName="${fileName}"</param>
+				<param name="inputName">downFile</param>
+				<param name="bufferSize">1024</param>
+			</result>
+			<result name="error">fail.jsp</result>
+		</action>
+		<action name="checkname" class="com.lkw.actionapi.CheckNameAction" method="checkname">
+		</action>
+		<action name="register" class="com.lkw.actionapi.RegisterAction" method="register">
+			<result name="success">test.jsp</result>
+		</action>
+	</package>
+</struts>
